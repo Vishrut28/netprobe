@@ -1,0 +1,9 @@
+{
+  "targets": [
+    { "name": "github",     "url": "https://github.com" },
+    { "name": "akamai",     "url": "https://www.akamai.com" },
+    { "name": "cloudflare", "url": "https://1.1.1.1" },
+    { "name": "google",     "url": "https://www.google.com", "expected_status": 200 },
+    { "name": "bad-dns",    "url": "https://does-not-exist.invalid" }
+  ]
+}

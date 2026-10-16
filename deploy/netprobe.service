@@ -1,0 +1,25 @@
+[Unit]
+Description=netprobe endpoint health checker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=netprobe
+Group=netprobe
+ExecStart=/usr/local/bin/netprobe serve -config /etc/netprobe/targets.json -listen 127.0.0.1:9115 -interval 30s
+Restart=on-failure
+RestartSec=5
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=
+MemoryMax=128M
+
+[Install]
+WantedBy=multi-user.target

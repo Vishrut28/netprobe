@@ -1,0 +1,21 @@
+groups:
+  - name: netprobe
+    rules:
+      - alert: EndpointDown
+        expr: netprobe_up == 0
+        for: 2m
+        labels: { severity: critical }
+        annotations:
+          summary: "{{ $labels.target }} is down"
+      - alert: CertificateExpiringSoon
+        expr: netprobe_cert_expiry_days < 14
+        for: 1h
+        labels: { severity: warning }
+        annotations:
+          summary: "{{ $labels.target }} certificate expires in {{ $value | humanize }} days"
+      - alert: SlowTLSHandshake
+        expr: netprobe_tls_handshake_seconds > 0.5
+        for: 10m
+        labels: { severity: warning }
+        annotations:
+          summary: "{{ $labels.target }} TLS handshake above 500ms"
